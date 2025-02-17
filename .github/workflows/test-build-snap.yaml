@@ -18,7 +18,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        confinement: [ "strict", "classic" ]
+        confinement: [ "strict"]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -42,10 +42,6 @@ jobs:
 
       - name: yq - portable yaml processor
         uses: mikefarah/yq@v4
-
-      - if: ${{ matrix.confinement == 'classic' }}
-        name: Convert to Classic Snap
-        run: ./make-classic.sh
 
       - name: Build Snap (remote)
         run: snapcraft remote-build --launchpad-accept-public-upload
