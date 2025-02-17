@@ -24,11 +24,6 @@ plugs:
     read:
       - /etc/opentelemetry-collector/config.yaml
 
-  var-log:
-    interface: system-files
-    read:
-      - /var/log
-
   logs:
     interface: content
     target: $SNAP/shared-logs
@@ -60,7 +55,6 @@ apps:
       - system-observe
       - log-observe
       - etc-opentelemetry-collector-config
-      - var-log
       - proc-sys-kernel-random
 
 parts:
