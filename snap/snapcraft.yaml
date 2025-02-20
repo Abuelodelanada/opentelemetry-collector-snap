@@ -16,7 +16,8 @@ platforms:
     build-on: [arm64]
     build-for: [arm64]
 
-confinement: devmode # use 'strict' once you have the right plugs and slots
+# confinement: devmode # use 'strict' once you have the right plugs and slots
+confinement: strict # use 'strict' once you have the right plugs and slots
 
 plugs:
   etc-opentelemetry-collector-config:
