@@ -1,6 +1,6 @@
 #!/bin/sh
 
-HOST_CONFIG_FILE="/etc/opentelemetry-collector/config.yaml"
+HOST_CONFIG_FILE="/etc/otelcol/config.yaml"
 
 log() {
   echo "$1" | systemd-cat
@@ -14,15 +14,10 @@ else
   log "Launching with reporting enabled"
 fi
 
-launch_classic() {
-  log "Launching with config from the host filesystem"
-  exec "$SNAP/bin/otelcol" --config "$HOST_CONFIG_FILE" $REPORTING_ARG
-}
-
 launch_strict() {
   CONFIG_FILE="$SNAP/etc/config.yaml"
 
-  if snapctl is-connected etc-opentelemetry-collector-config && [ -r "$HOST_CONFIG_FILE" ]; then
+  if snapctl is-connected etc-otelcol-config && [ -r "$HOST_CONFIG_FILE" ]; then
     log "Launching with config from the host filesystem"
     CONFIG_FILE="$HOST_CONFIG_FILE"
   else
@@ -32,10 +27,4 @@ launch_strict() {
   exec "$SNAP/bin/otelcol" --config "$CONFIG_FILE" $REPORTING_ARG
 }
 
-# Detect confinement type
-# https://forum.snapcraft.io/t/reliable-way-of-detecting-snap-confinement-mode/8896/4
-if grep -qxF "confinement: classic" "$SNAP/meta/snap.yaml"; then
-  launch_classic
-else
-  launch_strict
-fi
+launch_strict

@@ -1,7 +1,7 @@
 import sh
 import requests
 
-OTEL_DIR = "/etc/opentelemetry-collector"
+OTEL_DIR = "/etc/otelcol"
 OTEL_CONFIG = f"{OTEL_DIR}/config.yaml"
 PROEMTHEUS_URL = "https://github.com/prometheus/prometheus/releases/download/v3.2.0/prometheus-3.2.0.linux-amd64.tar.gz"
 PROMETHEUS_BINARY = "/tmp/prometheus-3.2.0.linux-amd64/prometheus"
@@ -43,7 +43,7 @@ def setup():
     config_opentelemetry_collector()
 
     run_prometheus()
-    sh.sudo.snap.connect("opentelemetry-collector:etc-opentelemetry-collector-config")
+    sh.sudo.snap.connect("opentelemetry-collector:etc-otelcol-config")
     sh.sudo.snap.restart("opentelemetry-collector")
 
 def test_integration():

@@ -20,10 +20,10 @@ platforms:
 confinement: strict # use 'strict' once you have the right plugs and slots
 
 plugs:
-  etc-opentelemetry-collector-config:
+  etc-otelcol-config:
     interface: system-files
     read:
-      - /etc/opentelemetry-collector/config.yaml
+      - /etc/otelcol/config.yaml
 
   logs:
     interface: content
@@ -55,7 +55,7 @@ apps:
       - network-observe
       - system-observe
       - log-observe
-      - etc-opentelemetry-collector-config
+      - etc-otelcol-config
       - proc-sys-kernel-random
       # We use home plug since it has the dac_read_search capability enabled.
       # without this, we may face this issue while reading logs in /var/log
