@@ -8,7 +8,6 @@ description: |
 contact: jose.masson@canonical.com
 base: core24
 
-
 platforms:
   amd64:
     build-on: [amd64]
