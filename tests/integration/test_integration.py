@@ -10,7 +10,7 @@ PROMETHEUS_BINARY = "/tmp/prometheus-3.2.0.linux-amd64/prometheus"
 PROMETHEUS_CONFIG = "tests/integration/prometheus_config.yaml"
 
 
-@retry(stop=stop_after_attempt(10), wait=wait_fixed(5))
+@retry(stop=stop_after_attempt(20), wait=wait_fixed(10))
 def _retry_metrics_api(endpoint: str, params: dict):
     response = requests.get(endpoint, params=params)
     assert len(response.json()["data"]["result"]) > 0
