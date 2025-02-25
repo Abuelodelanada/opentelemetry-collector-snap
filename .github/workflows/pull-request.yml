@@ -23,4 +23,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Run tests
-        run: make lock requirements integration
+        run: |
+          sudo snap install astral-uv --classic
+          make lock requirements integration
