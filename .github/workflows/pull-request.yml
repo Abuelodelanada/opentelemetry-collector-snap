@@ -22,7 +22,21 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Run tests
+      - name: Install dependencies
         run: |
+          # Install LXD
+          sudo snap install lxd
+          sudo lxd waitready
+          sudo lxd init --minimal
+          sudo lxc network set lxdbr0 ipv6.address none
+          # Enable non-root user control
+          sudo chmod a+wr /var/snap/lxd/common/lxd/unix.socket
+          lxd_user="$USER"
+          sudo usermod -a -G lxd "$lxd_user"
+          # Ensure that LXD containers can talk to the internet
+          sudo iptables -F FORWARD
+          sudo iptables -P FORWARD ACCEPT
+          # Install other snaps
           sudo snap install astral-uv --classic
-          make lock requirements integration
+      - name: Run tests
+        run: make lock requirements integration
