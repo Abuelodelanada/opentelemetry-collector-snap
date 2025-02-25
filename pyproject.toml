@@ -10,6 +10,10 @@ dev = [
   "coverage[toml]",
   "sh",
   "requests",
+  "tenacity",
+  "black",
+  "ruff",
+  "codespell",
 ]
 
 # Testing tools configuration

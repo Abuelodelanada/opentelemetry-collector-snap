@@ -6,6 +6,15 @@ ALL := $(SRC) $(TESTS)
 export PYTHONPATH = $(PROJECT)
 export PY_COLORS=1
 
+fmt:
+	uv run --isolated --extra dev ruff check --fix $(TESTS)
+	uv run --isolated --extra dev black $(TESTS)
+
+lint:
+	uv run --isolated --extra dev codespell . --skip .git --skip .tox --skip build --skip lib --skip venv --skip .mypy_cache --skip *.svg
+	uv run --isolated --extra dev ruff check $(TESTS)
+	uv run --isolated --extra dev black --check --diff $(TESTS)
+
 # Update uv.lock with the latest deps
 lock:
 	uv lock --upgrade --no-cache
