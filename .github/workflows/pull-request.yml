@@ -29,7 +29,5 @@ jobs:
           # Ensure that LXD containers can talk to the internet
           sudo iptables -F FORWARD
           sudo iptables -P FORWARD ACCEPT
-          # Install other snaps
-          sudo snap install astral-uv --classic
       - name: Run tests
-        run: make lock requirements integration
+        run: make integration
