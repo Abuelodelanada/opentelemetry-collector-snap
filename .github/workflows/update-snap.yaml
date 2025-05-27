@@ -57,7 +57,6 @@ jobs:
         uses: peter-evans/create-pull-request@v4.2.3
         with:
           path: main
-          token: ${{ secrets.OBSERVABILITY_NOCTUA_TOKEN }}
           commit-message: "chore(deps): bump opentelemetry-collector version to ${{ steps.check.outputs.release }}"
           committer: "Github Actions <github-actions@github.com>"
           author: "Github Actions <github-actions@github.com>"
